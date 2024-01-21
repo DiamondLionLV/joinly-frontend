@@ -32,6 +32,22 @@ export const SDKUsageDemo = () => {
     setUserAnswer(event.target.value);
   };
 
+  const getUserQuestion = async () => {
+    const userId = await identify();
+
+    const docRef = doc(firestore, 'users', userId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const userDoc = docSnap.data();
+      const question = userDoc.randomQuestion
+
+      setCurrentQuestion(question);
+
+      return;
+    }
+  }
+
   const startTimer = async () => {
     try {
       const userId = await identify();
@@ -80,22 +96,6 @@ export const SDKUsageDemo = () => {
     };
 
     saveUserIdToDB();
-
-    const getUserQuestion = async () => {
-      const userId = await identify();
-
-      const docRef = doc(firestore, 'users', userId);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const userDoc = docSnap.data();
-        const question = userDoc.randomQuestion
-
-        setCurrentQuestion(question);
-
-        return;
-      }
-    }
 
     startTimer();
 
