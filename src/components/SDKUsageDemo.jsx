@@ -115,12 +115,7 @@ export const SDKUsageDemo = () => {
           isNotificationTime: false,
         });
 
-        setIsSubmited(true);
-
-        addStickyWithAnswer(userAnswer, currentQuestion);
-
-        setUserAnswer('');
-        setShowInput(false);
+        startTimer();
       } catch (error) {
         console.error('Error updating document:', error);
       }
