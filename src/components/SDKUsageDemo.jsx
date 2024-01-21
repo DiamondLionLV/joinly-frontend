@@ -32,6 +32,31 @@ export const SDKUsageDemo = () => {
     setUserAnswer(event.target.value);
   };
 
+  const startTimer = async () => {
+    try {
+      const userId = await identify();
+      const docRef = doc(firestore, 'users', userId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const userDoc = docSnap.data();
+        const userIsNotificationTime = userDoc.isNotificationTime || false;
+
+        if (userIsNotificationTime && !notificationDisplayed) {
+          miro.board.notifications.showInfo(miroNotif);
+          if (!currentQuestion) {
+            await getUserQuestion();
+            setShowInitialMessage(false);
+          }
+          setShowInput(true);
+          setNotificationDisplayed(true);
+        }
+      }
+    } catch (error) {
+      console.error('Error checking notification time:', error);
+    }
+  };
+
   useEffect(() => {
     let timer;
 
@@ -71,31 +96,6 @@ export const SDKUsageDemo = () => {
         return;
       }
     }
-
-    const startTimer = async () => {
-        try {
-          const userId = await identify();
-          const docRef = doc(firestore, 'users', userId);
-          const docSnap = await getDoc(docRef);
-
-          if (docSnap.exists()) {
-            const userDoc = docSnap.data();
-            const userIsNotificationTime = userDoc.isNotificationTime || false;
-
-            if (userIsNotificationTime && !notificationDisplayed) {
-              miro.board.notifications.showInfo(miroNotif);
-              if (!currentQuestion) {
-                await getUserQuestion();
-                setShowInitialMessage(false);
-              }
-              setShowInput(true);
-              setNotificationDisplayed(true);
-            }
-          }
-        } catch (error) {
-          console.error('Error checking notification time:', error);
-        }
-    };
 
     startTimer();
 
