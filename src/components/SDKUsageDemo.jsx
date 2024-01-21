@@ -201,7 +201,7 @@ export const SDKUsageDemo = () => {
 };
 
 const miroNotifMessage = {
-  action: "⚠️ Time to answer your MiReal! ⚠️",
+  action: "⚠️ Time to answer your Join.ly! ⚠️",
 };
 
 const miroNotif = `${miroNotifMessage.action}`;
