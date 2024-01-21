@@ -115,7 +115,12 @@ export const SDKUsageDemo = () => {
           isNotificationTime: false,
         });
 
-        startTimer();
+        setIsSubmited(true);
+
+        addStickyWithAnswer(userAnswer, currentQuestion);
+
+        setUserAnswer('');
+        setShowInput(false);
       } catch (error) {
         console.error('Error updating document:', error);
       }
@@ -134,9 +139,8 @@ export const SDKUsageDemo = () => {
         isTestMode: true,
       });
 
-      setShowInitialMessage(false);
       setIsSubmited(false);
-      setShowInput(true);
+      startTimer();
     } catch (error) {
       console.error('Error updating document:', error);
     }
