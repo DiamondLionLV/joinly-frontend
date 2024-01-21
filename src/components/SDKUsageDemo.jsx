@@ -1,25 +1,20 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 import dotenv from 'dotenv';
-import Image from 'next/image';
 
-import joinly from '../assets/joinly.png';
-
-dotenv.config();
+dotenv.config()
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAhi2xnOblRCLkkhEPrQXhmRhUMW4wYlNk",
-  authDomain: "joinly-1eb05.firebaseapp.com",
-  projectId: "joinly-1eb05",
-  storageBucket: "joinly-1eb05.appspot.com",
-  messagingSenderId: "1087893992605",
-  appId: "1:1087893992605:web:133069cce64f7ed4939074",
-  measurementId: "G-KB6MTZ5X3L"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -43,7 +38,6 @@ export const SDKUsageDemo = () => {
     const saveUserIdToDB = async () => {
       try {
         const userId = await identify();
-        console.log('User ID:', userId);
 
         const docRef = doc(firestore, 'users', userId);
         const docSnap = await getDoc(docRef);
@@ -54,10 +48,6 @@ export const SDKUsageDemo = () => {
             isNotificationTime: false,
             isSubmited: false,
           });
-
-          console.log('Document successfully written!');
-        } else {
-          console.log('Document already exists.');
         }
       } catch (error) {
         console.error('Error saving user ID to DB:', error);
@@ -74,9 +64,7 @@ export const SDKUsageDemo = () => {
 
       if (docSnap.exists()) {
         const userDoc = docSnap.data();
-        console.log('User doc:', userDoc);
         const question = userDoc.randomQuestion
-
 
         setCurrentQuestion(question);
 
@@ -143,7 +131,7 @@ export const SDKUsageDemo = () => {
     <div>
       {showInitialMessage && !isSubmited && (
         <div>
-          <p>Your MiReal hasn't yet started today</p>
+          <p>Your Join.ly hasn't yet started today</p>
         </div>
       )}
 
@@ -163,9 +151,6 @@ export const SDKUsageDemo = () => {
 
       {showInput && (
         <div>
-          {/* <div className='cs1 cel12'>
-            <Image src={joinly} width={400} height={400} alt="Join.ly logo" />
-          </div> */}
           <p>{currentQuestion}</p>
           <input
             type="text"
@@ -203,14 +188,6 @@ const zoomToFrame = async () => {
 
 async function addStickyWithAnswer(answer, question) {
   try {
-    // Check if the frame with the specific question already exists
-    // const existingFrame = (await miro.board.widgets.create({
-    //   type: 'FRAME',
-    //   text: question,
-    // }))[0];
-
-    // If the frame doesn't exist, create a new frame
-    // if (!existingFrame) {
     const position = await miro.board.experimental.findEmptySpace({
       x: 0,
       y: 0,
@@ -230,7 +207,6 @@ async function addStickyWithAnswer(answer, question) {
         x: position.x,
         y: position.y,
       });
-      console.log('Frame:', frame);
 
       // Add sticky inside the new frame
       const stickyNote = await frame.add(await miro.board.createStickyNote({
@@ -246,7 +222,6 @@ async function addStickyWithAnswer(answer, question) {
         width: 130,
       }));
 
-      // await miro.board.viewport.zoomTo(frame);
     } else {
       // If the frame already exists, add sticky inside it
       const stickyNote = await frame.add(await miro.board.createStickyNote({
