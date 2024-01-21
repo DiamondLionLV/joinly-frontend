@@ -249,20 +249,6 @@ async function addStickyWithAnswer(answer, question) {
         width: 130,
       }));
 
-    } else {
-      // If the frame already exists, add sticky inside it
-      const stickyNote = await frame.add(await miro.board.createStickyNote({
-        content: answer,
-        style: {
-          fillColor: 'dark_blue',
-          textAlign: 'center',
-          textAlignVertical: 'middle',
-        },
-        x: frame.x + 20, // Adjust the position as needed
-        y: frame.y + 20, // Adjust the position as needed
-        shape: 'square',
-        width: 30,
-      }));
     }
   } catch (error) {
     console.error('Error adding sticky with answer:', error);
