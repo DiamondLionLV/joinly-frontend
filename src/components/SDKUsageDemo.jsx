@@ -85,7 +85,7 @@ export const SDKUsageDemo = () => {
             if (userIsNotificationTime && !notificationDisplayed) {
               miro.board.notifications.showInfo(miroNotif);
               if (!currentQuestion) {
-                getUserQuestion();
+                await getUserQuestion();
                 setShowInitialMessage(false);
               }
               setShowInput(true);
