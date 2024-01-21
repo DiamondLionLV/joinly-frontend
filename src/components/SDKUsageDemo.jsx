@@ -127,19 +127,19 @@ export const SDKUsageDemo = () => {
     }
   };
 
+  // Habndle test mode
   const handleTestmode = async () => {
-    if (userAnswer.trim() !== '') {
-      try {
-        const userId = await identify();
-        const docRef = doc(firestore, 'users', userId);
+    try {
+      const userId = await identify();
+      const docRef = doc(firestore, 'users', userId);
 
-        await updateDoc(docRef, {
-          isSubmited: false,
-          isNotificationTime: true,
-        });
-      } catch (error) {
-        console.error('Error updating document:', error);
-      }
+      await updateDoc(docRef, {
+        isSubmited: false,
+        isNotificationTime: true,
+        isTestMode: true,
+      });
+    } catch (error) {
+      console.error('Error updating document:', error);
     }
   };
 
