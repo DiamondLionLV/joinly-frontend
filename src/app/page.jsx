@@ -30,7 +30,7 @@ export default async function Page() {
 
   return (
     <div>
-      <h3>API usage demo</h3>
+      {/* <h3>API usage demo</h3>
       <p className="p-small">API Calls need to be authenticated</p>
       <p>
         Apps that use the API usually would run on your own domain. During
@@ -50,7 +50,7 @@ export default async function Page() {
             ))}
           </ul>
         </>
-      )}
+      )} */}
     </div>
   );
 }
