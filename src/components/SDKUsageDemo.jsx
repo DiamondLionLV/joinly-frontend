@@ -141,6 +141,7 @@ export const SDKUsageDemo = () => {
 
       setShowInitialMessage(false);
       setIsSubmited(false);
+      setShowInput(true);
     } catch (error) {
       console.error('Error updating document:', error);
     }
