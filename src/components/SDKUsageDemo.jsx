@@ -138,6 +138,9 @@ export const SDKUsageDemo = () => {
         isNotificationTime: true,
         isTestMode: true,
       });
+
+      setShowInitialMessage(false);
+      setIsSubmited(false);
     } catch (error) {
       console.error('Error updating document:', error);
     }
