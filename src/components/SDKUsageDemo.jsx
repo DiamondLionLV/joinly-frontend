@@ -127,11 +127,35 @@ export const SDKUsageDemo = () => {
     }
   };
 
+  const handleTestmode = async () => {
+    if (userAnswer.trim() !== '') {
+      try {
+        const userId = await identify();
+        const docRef = doc(firestore, 'users', userId);
+
+        await updateDoc(docRef, {
+          isSubmited: false,
+          isNotificationTime: true,
+        });
+      } catch (error) {
+        console.error('Error updating document:', error);
+      }
+    }
+  };
+
   return (
     <div>
       {showInitialMessage && !isSubmited && (
         <div>
           <p>Your Join.ly hasn't yet started today</p>
+          <p></p>
+          <button
+            type="button"
+            onClick={() => handleTestmode()}
+            className="button button-danger"
+          >
+            Test mode
+          </button>
         </div>
       )}
 
